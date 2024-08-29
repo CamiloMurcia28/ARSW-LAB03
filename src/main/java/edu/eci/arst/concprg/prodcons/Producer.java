@@ -33,7 +33,7 @@ public class Producer extends Thread {
 
 
 
-        while (true) {
+        while (stockLimit >= queue.size()) {
             if(queue.size() < stockLimit ){
 
 
@@ -55,3 +55,5 @@ public class Producer extends Thread {
         }
     }
 }
+
+
