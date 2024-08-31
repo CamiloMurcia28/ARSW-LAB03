@@ -8,8 +8,6 @@ package edu.eci.arsw.blacklistvalidator;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import edu.eci.arsw.blacklistvalidator.*;
 /**
  *
  * @author hcadavid
@@ -56,6 +54,7 @@ public class HostBlackListsValidator {
         List<Integer> blackListOccurrences = new ArrayList<>();
         int r = 0;
         List<Integer> empty = new ArrayList<>();
+        
 
         
         int[] partes = dividirEnPartes(skds.getRegisteredServersCount(), n);
@@ -82,12 +81,9 @@ public class HostBlackListsValidator {
                 e.printStackTrace();
             }
         }
-
-        // Recoger resultados después de que los hilos hayan terminado
-        for (int i = 0; i < n; i++) {
-            blackListOccurrences.addAll(threads[i].getList());
-        }
-
+        
+        blackListOccurrences.addAll(threads[0].getList());
+    
         return blackListOccurrences;
     }
 }

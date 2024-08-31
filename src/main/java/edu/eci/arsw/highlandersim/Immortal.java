@@ -15,6 +15,10 @@ public class Immortal extends Thread {
 
     private final String name;
 
+    private boolean isPaused;
+
+    private final Object lock;
+
     private final Random r = new Random(System.currentTimeMillis());
 
 
@@ -25,11 +29,23 @@ public class Immortal extends Thread {
         this.immortalsPopulation = immortalsPopulation;
         this.health = health;
         this.defaultDamageValue=defaultDamageValue;
+        this.lock = new Object();
     }
 
     public void run() {
 
         while (true) {
+
+            synchronized (lock) {
+                while (isPaused) {
+                    try {
+                        lock.wait();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
             Immortal im;
 
             int myIndex = immortalsPopulation.indexOf(this);
@@ -56,7 +72,7 @@ public class Immortal extends Thread {
     }
 
     public void fight(Immortal i2) {
-
+        synchronized (immortalsPopulation) {        
         if (i2.getHealth() > 0) {
             i2.changeHealth(i2.getHealth() - defaultDamageValue);
             this.health += defaultDamageValue;
@@ -65,14 +81,37 @@ public class Immortal extends Thread {
             updateCallback.processReport(this + " says:" + i2 + " is already dead!\n");
         }
 
+        }
+
     }
 
     public void changeHealth(int v) {
         health = v;
+        /*  
+        if(health <= 0){
+            immortalsPopulation.remove(this);
+            this.pause();
+        }   
+        /* */  
     }
 
     public int getHealth() {
         return health;
+    }
+
+    public void pause() {
+        synchronized (lock) {
+            isPaused = true;
+
+        }
+
+    }
+
+    public void keepFighting(){
+        synchronized (lock) {
+            isPaused = false;
+            lock.notifyAll();
+        }
     }
 
     @Override
@@ -80,5 +119,7 @@ public class Immortal extends Thread {
 
         return name + "[" + health + "]";
     }
+    public void parar(){
 
+    }
 }
