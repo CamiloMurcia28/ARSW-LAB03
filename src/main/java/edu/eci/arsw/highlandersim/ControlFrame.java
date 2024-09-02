@@ -80,7 +80,6 @@ public class ControlFrame extends JFrame {
                         im.start();
                     }
                 }
-
                 btnStart.setEnabled(false);
 
             }
@@ -90,15 +89,15 @@ public class ControlFrame extends JFrame {
         JButton btnPauseAndCheck = new JButton("Pause and check");
         btnPauseAndCheck.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                    int sum = 0;
-                    for (Immortal im : immortals) {
-                        im.pause();
-                    }
-                    for (Immortal im : immortals) {
-                        sum += im.getHealth();
-                    }
+                int sum = 0;
+                for (Immortal im : immortals) {
+                    im.pause();
+                }
+                for (Immortal im : immortals) {
+                    sum += im.getHealth();
+                }
 
-                    statisticsLabel.setText("<html>"+immortals.toString()+"<br>Health sum:"+ sum);  
+                statisticsLabel.setText("<html>"+immortals.toString()+"<br>Health sum:"+ sum);
             }
         });
         toolBar.add(btnPauseAndCheck);
@@ -108,8 +107,11 @@ public class ControlFrame extends JFrame {
         btnResume.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                for (Immortal im : immortals) {
-                        im.keepFighting();
-                    }
+                   im.keepFighting();
+               }
+               synchronized (immortals) {
+                   immortals.notifyAll();
+               }
             }
         });
         
@@ -129,9 +131,7 @@ public class ControlFrame extends JFrame {
         btnStop.setForeground(Color.RED);
         btnStop.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e) {
-                for (Immortal im : immortals) {
-                    im.parar();
-                }
+                immortals.clear();
                 btnStart.setEnabled(true);
             }        
         });

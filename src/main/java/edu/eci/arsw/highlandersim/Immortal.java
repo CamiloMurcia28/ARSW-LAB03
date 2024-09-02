@@ -18,7 +18,7 @@ public class Immortal extends Thread {
     private boolean isPaused;
 
     private final Object lock;
-
+    private boolean isDeath;
     private final Random r = new Random(System.currentTimeMillis());
 
 
@@ -34,8 +34,7 @@ public class Immortal extends Thread {
 
     public void run() {
 
-        while (true) {
-
+        while (immortalsPopulation.size() > 1 && this.getHealth() > 0) {
             synchronized (lock) {
                 while (isPaused) {
                     try {
@@ -61,6 +60,11 @@ public class Immortal extends Thread {
 
             this.fight(im);
 
+            if (im.getHealth() <= 0) {
+                immortalsPopulation.remove(im);
+                isDeath = true;
+            }
+
             try {
                 Thread.sleep(1);
             } catch (InterruptedException e) {
@@ -72,27 +76,23 @@ public class Immortal extends Thread {
     }
 
     public void fight(Immortal i2) {
-        synchronized (immortalsPopulation) {        
-        if (i2.getHealth() > 0) {
-            i2.changeHealth(i2.getHealth() - defaultDamageValue);
-            this.health += defaultDamageValue;
-            updateCallback.processReport("Fight: " + this + " vs " + i2+"\n");
-        } else {
-            updateCallback.processReport(this + " says:" + i2 + " is already dead!\n");
+        synchronized (immortalsPopulation) {
+            //synchronized (immortalsPopulation) {
+                if(this.getHealth() > 0){
+                    if (i2.getHealth() > 0) {
+                        i2.changeHealth(i2.getHealth() - defaultDamageValue);
+                        this.health += defaultDamageValue;
+                        updateCallback.processReport("Fight: " + this + " vs " + i2+"\n");
+                    } else {
+                        updateCallback.processReport(this + " says:" + i2 + " is already dead!\n");
+                    }
+                }
+            //}
         }
-
-        }
-
     }
 
     public void changeHealth(int v) {
         health = v;
-        /*  
-        if(health <= 0){
-            immortalsPopulation.remove(this);
-            this.pause();
-        }   
-        /* */  
     }
 
     public int getHealth() {
@@ -102,7 +102,6 @@ public class Immortal extends Thread {
     public void pause() {
         synchronized (lock) {
             isPaused = true;
-
         }
 
     }
@@ -116,10 +115,9 @@ public class Immortal extends Thread {
 
     @Override
     public String toString() {
-
         return name + "[" + health + "]";
     }
     public void parar(){
-
+        isDeath = true;
     }
 }

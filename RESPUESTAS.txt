@@ -1,0 +1,2 @@
+10.
+A) Es possible que se produzca una condicion Carrera, ya que varios hilos pueden acceder a la misma variable y tratar de eliminar otro hilo al mismo tiempo, debido a que la lista se modifica de manera concurrente.
