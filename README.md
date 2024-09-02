@@ -75,9 +75,15 @@ No, en cada pause and check no se mantiene el invariante.
 
 10. Un elemento molesto para la simulación es que en cierto punto de la misma hay pocos 'inmortales' vivos realizando peleas fallidas con 'inmortales' ya muertos. Es necesario ir suprimiendo los inmortales muertos de la simulación a medida que van muriendo. Para esto:
 	* Analizando el esquema de funcionamiento de la simulación, esto podría crear una condición de carrera? Implemente la funcionalidad, ejecute la simulación y observe qué problema se presenta cuando hay muchos 'inmortales' en la misma. Escriba sus conclusiones al respecto en el archivo RESPUESTAS.txt.
+	![image](https://github.com/user-attachments/assets/fdbee25c-c520-476b-9e34-c4269b16c178)
+![image](https://github.com/user-attachments/assets/1ed5a7bf-c6da-4806-bdfc-45fbb5545cfa)
+
+
 	* Corrija el problema anterior __SIN hacer uso de sincronización__, pues volver secuencial el acceso a la lista compartida de inmortales haría extremadamente lenta la simulación.
 
 11. Para finalizar, implemente la opción STOP.
+    ![image](https://github.com/user-attachments/assets/3aac9538-233c-45b4-be42-010ec52aef15)
+
 
 <!--
 ### Criterios de evaluación
