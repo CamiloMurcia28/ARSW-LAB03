@@ -55,7 +55,14 @@ No, en cada pause and check no se mantiene el invariante.
 
 4. Una primera hipótesis para que se presente la condición de carrera para dicha función (pause and check), es que el programa consulta la lista cuyos valores va a imprimir, a la vez que otros hilos modifican sus valores. Para corregir esto, haga lo que sea necesario para que efectivamente, antes de imprimir los resultados actuales, se pausen todos los demás hilos. Adicionalmente, implemente la opción ‘resume’.
 
+Se implementa la acción de los botones btnPauseAndCheck y btnResume
+
 5. Verifique nuevamente el funcionamiento (haga clic muchas veces en el botón). Se cumple o no el invariante?.
+
+No lo cumple: 
+
+![image](https://github.com/user-attachments/assets/e2208e8f-41c3-4bab-bf4c-e5fe7925fd55)
+
 
 6. Identifique posibles regiones críticas en lo que respecta a la pelea de los inmortales. Implemente una estrategia de bloqueo que evite las condiciones de carrera. Recuerde que si usted requiere usar dos o más ‘locks’ simultáneamente, puede usar bloques sincronizados anidados:
 
@@ -66,10 +73,24 @@ No, en cada pause and check no se mantiene el invariante.
 		}
 	}
 	```
+ 
+ Se implementa la estrategia de bloqueo en el método fight() de la clase Immortal: 
+
+ ![image](https://github.com/user-attachments/assets/768df74c-548f-4fbc-9307-796637738885)
+
 
 7. Tras implementar su estrategia, ponga a correr su programa, y ponga atención a si éste se llega a detener. Si es así, use los programas jps y jstack para identificar por qué el programa se detuvo.
 
+![image](https://github.com/user-attachments/assets/b8ade880-73c1-43e1-9831-09df535aa010)
+![image](https://github.com/user-attachments/assets/480f814c-1087-4e8c-a6f4-4f2a5a38f7de)
+![image](https://github.com/user-attachments/assets/8d38f2a5-60d3-443e-9737-a90823fbfa5a)
+
+
 8. Plantee una estrategia para corregir el problema antes identificado (puede revisar de nuevo las páginas 206 y 207 de _Java Concurrency in Practice_).
+
+Se plantea la solucion con ayuda del metodo de ImmortalCode planteado en la clase de Immortal: 
+![image](https://github.com/user-attachments/assets/df82effa-09bb-4771-8d45-9f37d5549f03)
+
 
 9. Una vez corregido el problema, rectifique que el programa siga funcionando de manera consistente cuando se ejecutan 100, 1000 o 10000 inmortales. Si en estos casos grandes se empieza a incumplir de nuevo el invariante, debe analizar lo realizado en el paso 4.
 
