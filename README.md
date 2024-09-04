@@ -80,8 +80,14 @@ No, en cada pause and check no se mantiene el invariante.
 
 
 	* Corrija el problema anterior __SIN hacer uso de sincronización__, pues volver secuencial el acceso a la lista compartida de inmortales haría extremadamente lenta la simulación.
+	  En este caso se hizo uso de la coleccion recurrente 'CopyOnWriteArrayList' que nos permite realizar las mismas funcionalidades que un Array normal de java, pero con la condicion de que este es NO bloqueante, por lo que se agiliza y se optimiza el tiempo de ejecucion al no hacer secuencial el acceso a la lista de los inmmortales
 
-11. Para finalizar, implemente la opción STOP.
+	![image](https://github.com/user-attachments/assets/473845ce-06ce-46b1-8b84-a482e7543007)
+	![image](https://github.com/user-attachments/assets/cec7350b-8562-4bff-8c8d-77db68a0bde2)
+
+
+
+12. Para finalizar, implemente la opción STOP.
     ![image](https://github.com/user-attachments/assets/3aac9538-233c-45b4-be42-010ec52aef15)
 
 
