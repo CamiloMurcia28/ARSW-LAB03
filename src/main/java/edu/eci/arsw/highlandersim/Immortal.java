@@ -78,8 +78,10 @@ public class Immortal extends Thread {
     }
 
     public void fight(Immortal i2) {
-        synchronized (immortalsPopulation) {
-            //synchronized (immortalsPopulation) {
+        Immortal firstLock = ImmortalCode(i2);
+        Immortal secondLock = firstLock == this ? i2 : this;
+        synchronized (firstLock) {
+            synchronized (secondLock) {
                 if(this.getHealth() > 0){
                     if (i2.getHealth() > 0) {
                         i2.changeHealth(i2.getHealth() - defaultDamageValue);
@@ -89,8 +91,22 @@ public class Immortal extends Thread {
                         updateCallback.processReport(this + " says:" + i2 + " is already dead!\n");
                     }
                 }
-            //}
+            }
         }
+    }
+
+    public Immortal ImmortalCode(Immortal i2) {
+        Immortal minImmortal;
+        int immortalOneHash = System.identityHashCode(this);
+        int immortalTwoHash = System.identityHashCode(i2);
+        if (immortalOneHash < immortalTwoHash) {
+            minImmortal = this;
+        } else if (immortalOneHash > immortalTwoHash) {
+            minImmortal = i2;
+        } else {
+            minImmortal = this;
+        }
+        return minImmortal;
     }
 
     public void changeHealth(int v) {
