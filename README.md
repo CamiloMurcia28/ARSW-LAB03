@@ -73,13 +73,17 @@ No, en cada pause and check no se mantiene el invariante.
 
 9. Una vez corregido el problema, rectifique que el programa siga funcionando de manera consistente cuando se ejecutan 100, 1000 o 10000 inmortales. Si en estos casos grandes se empieza a incumplir de nuevo el invariante, debe analizar lo realizado en el paso 4.
 
+![image](https://github.com/user-attachments/assets/019849f6-34d1-46d2-ac39-039109c282aa)
+
 10. Un elemento molesto para la simulación es que en cierto punto de la misma hay pocos 'inmortales' vivos realizando peleas fallidas con 'inmortales' ya muertos. Es necesario ir suprimiendo los inmortales muertos de la simulación a medida que van muriendo. Para esto:
 	* Analizando el esquema de funcionamiento de la simulación, esto podría crear una condición de carrera? Implemente la funcionalidad, ejecute la simulación y observe qué problema se presenta cuando hay muchos 'inmortales' en la misma. Escriba sus conclusiones al respecto en el archivo RESPUESTAS.txt.
+
 	![image](https://github.com/user-attachments/assets/fdbee25c-c520-476b-9e34-c4269b16c178)
-![image](https://github.com/user-attachments/assets/1ed5a7bf-c6da-4806-bdfc-45fbb5545cfa)
+	![image](https://github.com/user-attachments/assets/1ed5a7bf-c6da-4806-bdfc-45fbb5545cfa)
 
 
 	* Corrija el problema anterior __SIN hacer uso de sincronización__, pues volver secuencial el acceso a la lista compartida de inmortales haría extremadamente lenta la simulación.
+
 	  En este caso se hizo uso de la coleccion recurrente 'CopyOnWriteArrayList' que nos permite realizar las mismas funcionalidades que un Array normal de java, pero con la condicion de que este es NO bloqueante, por lo que se agiliza y se optimiza el tiempo de ejecucion al no hacer secuencial el acceso a la lista de los inmmortales
 
 	![image](https://github.com/user-attachments/assets/473845ce-06ce-46b1-8b84-a482e7543007)
